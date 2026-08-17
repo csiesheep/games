@@ -6,6 +6,13 @@
   "observability": {
     "enabled": true
   },
+  // This Worker OWNS the subdomain — it holds the Custom Domain, so every
+  // request that no more-specific game Route claims lands here, including "/".
+  // Custom Domain (not a Route) because it must also answer the apex-style
+  // hostname with no path, and it is the fallback for unmatched paths.
+  "routes": [
+    { "pattern": "games.csiesheep.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": ".",
     "binding": "ASSETS",
