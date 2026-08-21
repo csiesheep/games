@@ -17,19 +17,27 @@ const ORIGIN = "https://games.csiesheep.com";
 const ADS_TXT = "google.com, pub-3643717374169188, DIRECT, f08c47fec0942fa0\n";
 
 // Cloudflare's Managed robots.txt is prepended to this response and supplies
-// the crawl rules already; we only add the Sitemap directive so we don't emit
+// the crawl rules already; we only add the Sitemap directives so we don't emit
 // a duplicate "User-agent: *" group.
-const ROBOTS_TXT = "Sitemap: " + ORIGIN + "/sitemap.xml\n";
+//
+// Two directives, because robots.txt permits any number of them and this is
+// the only thing that points a crawler at the prefix-scoped sitemap. The root
+// sitemap below carries one line per game — the landing pages — while Grave
+// Errand's own sitemap covers its five inner pages. Without this second line
+// nothing links to it and those pages are reachable only by crawling links.
+const ROBOTS_TXT =
+  "Sitemap: " + ORIGIN + "/sitemap.xml\n" +
+  "Sitemap: " + ORIGIN + "/zombie_in_the_pocket/sitemap.xml\n";
 
 // The one sitemap for the whole subdomain. Add a line per game as it launches.
 //
 // Only the landing page of each game goes here. Grave Errand serves its own
 // prefix-scoped sitemap covering its five pages
-// (/zombie_in_the_pocket/sitemap.xml) — this file cannot reference that one,
-// because a <urlset> and a <sitemapindex> are different documents and mixing
-// them is invalid. Crawlers reach the rest by following the links from the
-// landing page, which is what they are for; submitting the prefix sitemap to
-// Search Console separately just makes it faster.
+// (/zombie_in_the_pocket/sitemap.xml), which this document cannot reference:
+// a <urlset> and a <sitemapindex> are different documents and mixing them is
+// invalid. robots.txt is where the two are tied together — see ROBOTS_TXT
+// above, which lists both — so the inner pages no longer depend on a crawler
+// following links from the landing page to be found.
 const SITEMAP_URLS = [
   { loc: ORIGIN + "/", lastmod: "2026-08-20", priority: "1.0" },
   { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-16", priority: "0.9" },
