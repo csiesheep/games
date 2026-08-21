@@ -22,11 +22,18 @@ const ADS_TXT = "google.com, pub-3643717374169188, DIRECT, f08c47fec0942fa0\n";
 const ROBOTS_TXT = "Sitemap: " + ORIGIN + "/sitemap.xml\n";
 
 // The one sitemap for the whole subdomain. Add a line per game as it launches.
-// (zombie_in_the_pocket is intentionally omitted while it is noindex — add it
-// when the clean-room rename ships.)
+//
+// Only the landing page of each game goes here. Grave Errand serves its own
+// prefix-scoped sitemap covering its five pages
+// (/zombie_in_the_pocket/sitemap.xml) — this file cannot reference that one,
+// because a <urlset> and a <sitemapindex> are different documents and mixing
+// them is invalid. Crawlers reach the rest by following the links from the
+// landing page, which is what they are for; submitting the prefix sitemap to
+// Search Console separately just makes it faster.
 const SITEMAP_URLS = [
-  { loc: ORIGIN + "/", lastmod: "2026-08-16", priority: "1.0" },
+  { loc: ORIGIN + "/", lastmod: "2026-08-20", priority: "1.0" },
   { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-16", priority: "0.9" },
+  { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-20", priority: "0.9" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
