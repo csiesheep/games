@@ -81,3 +81,7 @@ body {
 .hub-foot { text-align: center; margin-top: 48px; }
 .hub-foot a { color: var(--muted); text-decoration: none; font-size: .9rem; }
 .hub-foot a:hover { color: var(--text); }
+
+/* The zh line under a bilingual card title — quieter than the title, louder
+   than the blurb, and absent from cards that have no Chinese name. */
+.card-title-zh { display: block; font-size: 0.95rem; opacity: .8; margin-top: -2px; }
