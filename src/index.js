@@ -27,7 +27,8 @@ const ADS_TXT = "google.com, pub-3643717374169188, DIRECT, f08c47fec0942fa0\n";
 // nothing links to it and those pages are reachable only by crawling links.
 const ROBOTS_TXT =
   "Sitemap: " + ORIGIN + "/sitemap.xml\n" +
-  "Sitemap: " + ORIGIN + "/zombie_in_the_pocket/sitemap.xml\n";
+  "Sitemap: " + ORIGIN + "/zombie_in_the_pocket/sitemap.xml\n" +
+  "Sitemap: " + ORIGIN + "/jiangshi_in_the_pocket/sitemap.xml\n";
 
 // The one sitemap for the whole subdomain. Add a line per game as it launches.
 //
@@ -42,6 +43,7 @@ const SITEMAP_URLS = [
   { loc: ORIGIN + "/", lastmod: "2026-08-20", priority: "1.0" },
   { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-16", priority: "0.9" },
   { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-20", priority: "0.9" },
+  { loc: ORIGIN + "/jiangshi_in_the_pocket/", lastmod: "2026-08-24", priority: "0.9" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
