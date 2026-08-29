@@ -39,11 +39,18 @@ const ROBOTS_TXT =
 // invalid. robots.txt is where the two are tied together — see ROBOTS_TXT
 // above, which lists both — so the inner pages no longer depend on a crawler
 // following links from the landing page to be found.
+// lastmod is the date that site's content last changed, taken from the last
+// commit touching pages or assets in its repo -- not the date this file was
+// edited. Each game lives in a separate repo and Worker, so this hub cannot
+// read those dates at runtime; they are hand-maintained and will drift again.
+// Google ignores lastmod wholesale once it finds it unreliable, so a wrong
+// date is worse than none: if these stop being updated, delete the field
+// rather than leave it stale.
 const SITEMAP_URLS = [
-  { loc: ORIGIN + "/", lastmod: "2026-08-20", priority: "1.0" },
-  { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-16", priority: "0.9" },
-  { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-20", priority: "0.9" },
-  { loc: ORIGIN + "/jiangshi_in_the_pocket/", lastmod: "2026-08-24", priority: "0.9" },
+  { loc: ORIGIN + "/", lastmod: "2026-08-24", priority: "1.0" },
+  { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-29", priority: "0.9" },
+  { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-21", priority: "0.9" },
+  { loc: ORIGIN + "/jiangshi_in_the_pocket/", lastmod: "2026-08-29", priority: "0.9" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
