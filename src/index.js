@@ -51,10 +51,11 @@ const ROBOTS_TXT =
 // date is worse than none: if these stop being updated, delete the field
 // rather than leave it stale.
 const SITEMAP_URLS = [
-  { loc: ORIGIN + "/", lastmod: "2026-08-24", priority: "1.0" },
+  { loc: ORIGIN + "/", lastmod: "2026-09-04", priority: "1.0" },
   { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-29", priority: "0.9" },
   { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-21", priority: "0.9" },
   { loc: ORIGIN + "/jiangshi_in_the_pocket/", lastmod: "2026-08-29", priority: "0.9" },
+  { loc: ORIGIN + "/elevator_inc/", lastmod: "2026-09-04", priority: "0.9" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
