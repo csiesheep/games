@@ -29,6 +29,14 @@
   <meta property="og:description" content="Free, browser-based board-game companions and games. No installs, no sign-up.">
   <meta property="og:url" content="https://games.csiesheep.com/">
 
+  <!-- Only the faces the games themselves serve: Cinzel/Crimson are what the
+       sound board loads, Press Start 2P/Pixelify what Elevator Inc. loads. The
+       Jiangshi and Zombie load no webfonts at all, so their tiles use the same
+       system stacks their own pages fall back to — see --font-cjk in style.css. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&amp;family=Cinzel:wght@500;600&amp;family=Crimson+Text&amp;family=Press+Start+2P&amp;family=Pixelify+Sans:wght@500&amp;display=swap">
+
   <link rel="stylesheet" href="css/style.css">
 
   <script type="application/ld+json">
@@ -48,44 +56,107 @@
       <p class="tagline">Free board-game companions and games that run right in your browser.</p>
     </header>
 
-    <!-- Add a game: copy a card, and add a matching <url> line in
-         src/index.js SITEMAP_URLS. -->
-    <ul class="cards">
-      <li class="card">
+    <!-- Add a game: copy a tile, give it a .t-<name> block in css/style.css
+         painted from that game's own stylesheet, and add a matching <url>
+         line in src/index.js SITEMAP_URLS.
+
+         Source order is not visual order: CSS columns fill top-to-bottom then
+         across. This order puts the tall Betrayal tile and the short Zombie
+         one in the same column so the board staggers. -->
+    <ul class="board">
+      <li class="tile t-betrayal">
         <a href="/betrayal_sound_board/">
-          <span class="card-emoji" aria-hidden="true">🔊</span>
-          <span class="card-title">Betrayal Sound Board</span>
-          <span class="card-blurb">Atmospheric sound effects and music for <em>Betrayal at House on the Hill</em> — monsters, weapons, items, rooms, omens and events.</span>
-          <span class="card-go">Open →</span>
+          <div class="tile-body">
+            <svg class="tile-mark" width="66" height="66" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+              <path d="M60 22 L104 60 L104 100 L16 100 L16 60 Z" stroke="#e8c34a" stroke-width="4" stroke-linejoin="round"/>
+              <path d="M8 62 L60 16 L112 62" stroke="#e8c34a" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="50" y="72" width="20" height="28" fill="#c81e1e"/>
+              <rect x="30" y="66" width="14" height="14" fill="#3a1620" stroke="#8b0000" stroke-width="1.5"/>
+              <rect x="76" y="66" width="14" height="14" fill="#3a1620" stroke="#8b0000" stroke-width="1.5"/>
+            </svg>
+            <span class="kicker">BETRAYAL AT HOUSE ON THE HILL</span>
+            <h2 class="tile-name">SOUND <b>BOARD</b></h2>
+            <span class="est"><span></span><em>EST. IN DARKNESS</em></span>
+            <span class="tile-blurb">Atmospheric sound effects and music for your haunt.</span>
+            <span class="cats">
+              <span>ITEMS</span><span>WEAPONS</span><span>MONSTERS</span><span>ROOMS</span><span>OMENS</span><span>EVENTS</span>
+            </span>
+            <span class="tile-go">Open the board
+              <svg width="15" height="9" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M1 5h15M12 1l4 4-4 4" stroke="#e8c34a" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </div>
         </a>
       </li>
 
-      <li class="card">
-        <a href="/jiangshi_in_the_pocket/">
-          <span class="card-emoji" aria-hidden="true">🧛</span>
-          <span class="card-title">The Third Watch: The Jiangshi</span>
-          <span class="card-title-zh" lang="zh-Hant">三更：殭屍</span>
-          <span class="card-blurb">A solo hopping-vampire board game. You have one night — thirty turns — to find the King's 神主牌 and bury it in the 亂葬崗 before the third watch sounds.</span>
-          <span class="card-go">Play →</span>
-        </a>
-      </li>
-
-      <li class="card">
+      <li class="tile t-zombie">
         <a href="/zombie_in_the_pocket/">
           <span class="badge">preview</span>
-          <span class="card-emoji" aria-hidden="true">🧟</span>
-          <span class="card-title">Zombie in the Pocket</span>
-          <span class="card-blurb">A solo survival board game. Explore the house room by room, find the relic, and bury it in the family plot before midnight strikes.</span>
-          <span class="card-go">Play →</span>
+          <svg class="house" width="420" height="150" viewBox="0 0 900 360" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+            <path d="M450 40 L760 210 L760 360 L140 360 L140 210 Z" fill="#000"/>
+            <path d="M110 226 L450 26 L790 226" fill="none" stroke="#000" stroke-width="26" stroke-linejoin="round"/>
+            <rect x="418" y="268" width="64" height="92" fill="#c9a24b" opacity=".45"/>
+          </svg>
+          <svg class="moon" width="44" height="44" viewBox="0 0 86 86" aria-hidden="true">
+            <circle cx="43" cy="43" r="30" fill="#e6e3dc" opacity=".13"/>
+            <circle cx="43" cy="43" r="30" fill="none" stroke="#c9a24b" stroke-width="1" opacity=".4"/>
+          </svg>
+          <div class="tile-body">
+            <h2 class="tile-name">Zombie in My Pocket</h2>
+            <span class="tile-blurb">Find the relic. Bury it in the family plot. Beat the clock to midnight — alone.</span>
+            <span class="tile-go">Start</span>
+          </div>
         </a>
       </li>
 
-      <li class="card">
+      <li class="tile t-jiangshi">
+        <a href="/jiangshi_in_the_pocket/">
+          <svg class="lantern" width="40" height="66" viewBox="0 0 58 96" aria-hidden="true">
+            <line x1="29" y1="0" x2="29" y2="16" stroke="#5a4a2a" stroke-width="2"/>
+            <ellipse cx="29" cy="46" rx="24" ry="30" fill="#b5392f"/>
+            <ellipse cx="29" cy="46" rx="24" ry="30" fill="none" stroke="#e8c34a" stroke-width="1.5" opacity=".6"/>
+            <rect x="19" y="14" width="20" height="6" fill="#c9a24b"/>
+            <rect x="19" y="72" width="20" height="6" fill="#c9a24b"/>
+          </svg>
+          <svg class="lantern-far" width="30" height="50" viewBox="0 0 58 96" aria-hidden="true">
+            <ellipse cx="29" cy="46" rx="24" ry="30" fill="#8e2723"/>
+            <rect x="19" y="14" width="20" height="6" fill="#a3843f"/>
+            <rect x="19" y="72" width="20" height="6" fill="#a3843f"/>
+          </svg>
+          <div class="tile-body">
+            <h2 class="tile-name" lang="zh-Hant">三更：殭屍</h2>
+            <span class="kicker">THE THIRD WATCH: THE JIANGSHI</span>
+            <span class="tile-blurb" lang="zh-Hant">夜裡九點。三更時分，他來找你。<br>找著他的神主牌，趕在三更前入土。</span>
+            <span class="tile-go"><i lang="zh-Hant">符</i><b lang="zh-Hant">開始</b></span>
+          </div>
+        </a>
+      </li>
+
+      <li class="tile t-elevator">
         <a href="/elevator_inc/">
-          <span class="card-emoji" aria-hidden="true">🛗</span>
-          <span class="card-title">Elevator Inc.</span>
-          <span class="card-blurb">An incremental game. Run the vertical transport of a tower that never stops growing — more floors, more riders, more lifts to keep them moving.</span>
-          <span class="card-go">Play →</span>
+          <svg class="sun" width="44" height="44" viewBox="0 0 24 24" shape-rendering="crispEdges" aria-hidden="true">
+            <rect x="8" y="6" width="8" height="12" fill="#ffd23f"/><rect x="6" y="8" width="12" height="8" fill="#ffd23f"/>
+            <rect x="7" y="7" width="2" height="2" fill="#ffd23f"/><rect x="15" y="7" width="2" height="2" fill="#ffd23f"/>
+            <rect x="7" y="15" width="2" height="2" fill="#ffd23f"/><rect x="15" y="15" width="2" height="2" fill="#ffd23f"/>
+          </svg>
+          <svg class="cloud" width="78" height="32" viewBox="0 0 30 12" shape-rendering="crispEdges" aria-hidden="true">
+            <rect x="4" y="4" width="20" height="6" fill="#fff8ea"/><rect x="8" y="2" width="12" height="4" fill="#fff8ea"/><rect x="2" y="6" width="26" height="4" fill="#fff8ea"/>
+          </svg>
+          <div class="tile-body">
+            <svg class="tower" width="76" height="164" viewBox="0 0 42 90" shape-rendering="crispEdges" aria-hidden="true">
+              <rect x="4" y="6" width="34" height="80" fill="#fff8ea" stroke="#16183a" stroke-width="2"/>
+              <rect x="18" y="6" width="6" height="80" fill="#c2c9da"/>
+              <rect x="18" y="32" width="6" height="10" fill="#ffd23f" stroke="#16183a" stroke-width="1"/>
+              <rect x="8" y="14" width="7" height="7" fill="#ffe9a8"/><rect x="27" y="14" width="7" height="7" fill="#7dd8f7"/>
+              <rect x="8" y="30" width="7" height="7" fill="#7dd8f7"/><rect x="27" y="30" width="7" height="7" fill="#ffe9a8"/>
+              <rect x="8" y="46" width="7" height="7" fill="#ffe9a8"/><rect x="27" y="46" width="7" height="7" fill="#ff5c5c"/>
+              <rect x="8" y="62" width="7" height="7" fill="#7dd8f7"/><rect x="27" y="62" width="7" height="7" fill="#ffe9a8"/>
+            </svg>
+            <div>
+              <h2 class="tile-name">ELEVATOR<br>INC.</h2>
+              <span class="tile-blurb">A tower that keeps growing — and you run the lifts.</span>
+              <span class="tile-go">CONTINUE</span>
+            </div>
+          </div>
         </a>
       </li>
     </ul>

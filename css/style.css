@@ -12,6 +12,10 @@
   --radius: 12px;
   --font-head: Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  /* Copied verbatim from the Jiangshi's own stylesheet so its tile sets in the
+     same face its site does. Not a webfont there and not one here. */
+  --font-cjk: "Noto Serif TC", "Songti TC", "PingFang TC", "Microsoft JhengHei",
+              "Hiragino Mincho ProN", serif;
 }
 
 * { box-sizing: border-box; }
@@ -24,7 +28,7 @@ body {
   min-height: 100vh;
 }
 
-.wrap { max-width: 860px; margin: 0 auto; padding: 64px 20px 80px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 64px 20px 80px; }
 
 .hub-head { text-align: center; margin-bottom: 48px; }
 .hub-head h1 {
@@ -36,34 +40,289 @@ body {
 .hub-head h1 span { color: var(--accent); }
 .tagline { color: var(--muted); margin: 8px 0 0; }
 
-.cards {
+/* ---------------------------------------------------------------------------
+   The board.
+
+   A masonry fall rather than a grid of matched cards: each tile is as tall as
+   its own content wants to be, and CSS columns let the shorter ones stagger.
+   The point is that no tile looks like the hub — each one is painted in its
+   own game's colours and faces, lifted from that game's stylesheet, so the
+   board reads as four worlds instead of four summaries of worlds.
+
+   Columns fill top-to-bottom then across, so source order is NOT visual order.
+   The order below is chosen for the 3-column case: Betrayal and Zombie share
+   the first column (tall + short), the Jiangshi takes the second on its own,
+   Elevator the third.
+--------------------------------------------------------------------------- */
+.board {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px;
+  column-count: 3;
+  column-gap: 20px;
 }
+@media (max-width: 1000px) { .board { column-count: 2; } }
+@media (max-width: 640px)  { .board { column-count: 1; } }
 
-.card { position: relative; }
-.card a {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  padding: 22px 22px 18px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
+.tile {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+  margin: 0 0 20px;
+}
+.tile > a {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
   text-decoration: none;
-  color: var(--text);
-  transition: border-color .15s, transform .06s, background .15s;
+  transition: transform .22s ease, box-shadow .22s ease;
 }
-.card a:hover { border-color: var(--accent); background: var(--bg-2); transform: translateY(-2px); }
+.tile > a:hover { transform: translateY(-4px); box-shadow: 0 22px 46px -26px #000; }
+.tile > a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
-.card-emoji { font-size: 2rem; line-height: 1; margin-bottom: 12px; }
-.card-title { font-family: var(--font-head); font-size: 1.3rem; margin-bottom: 6px; }
-.card-blurb { color: var(--muted); font-size: .92rem; flex: 1; }
-.card-go { margin-top: 16px; color: var(--accent); font-size: .9rem; }
+.tile-body { position: relative; }
+.tile-mark { display: block; }
+.tile-name { display: block; margin: 0; }
+.tile-blurb { display: block; }
+
+/* The call to action reveals on hover, the way a pin does — but only where
+   hovering exists. On a touch screen there is no hover to reveal it with, so
+   it stays visible and the tile keeps an obvious way in. */
+.tile-go { display: inline-flex; align-items: center; gap: 9px; }
+@media (hover: hover) and (pointer: fine) {
+  .tile-go { opacity: 0; transform: translateY(4px); transition: opacity .22s ease, transform .22s ease; }
+  .tile > a:hover .tile-go { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- 1. Betrayal Sound Board ------------------------------------------- */
+.t-betrayal > a {
+  background: radial-gradient(120% 95% at 50% 0%, #140b12 0%, #06030a 74%);
+  border: 1px solid #3a1620;
+}
+/* The double rule the sound board frames its whole page with. */
+.t-betrayal > a::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px solid #6b551a;
+  border-radius: 9px;
+  opacity: .42;
+  pointer-events: none;
+}
+.t-betrayal .tile-body { padding: 34px 28px 30px; }
+.t-betrayal .kicker {
+  display: block;
+  margin: 20px 0 10px;
+  font-family: Cinzel, Georgia, serif;
+  font-size: .655rem;
+  letter-spacing: .24em;
+  color: #c9a227;
+}
+.t-betrayal .tile-name {
+  font-family: "Cinzel Decorative", Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  font-size: 2.1rem;
+  line-height: 1.05;
+  letter-spacing: .03em;
+  color: #ddc9a0;
+}
+.t-betrayal .tile-name b { font-weight: 900; color: #8b0000; }
+.t-betrayal .est { display: flex; align-items: center; gap: 11px; margin: 15px 0 14px; }
+.t-betrayal .est span { display: block; width: 44px; height: 1px; background: #5a1010; }
+.t-betrayal .est em {
+  font-style: normal;
+  font-family: Cinzel, Georgia, serif;
+  font-size: .59rem;
+  letter-spacing: .26em;
+  color: #8d7a63;
+}
+.t-betrayal .tile-blurb {
+  margin-bottom: 18px;
+  font-family: "Crimson Text", Georgia, "Times New Roman", serif;
+  font-size: 1.03rem;
+  line-height: 1.55;
+  color: #8d7a63;
+}
+.t-betrayal .cats { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+.t-betrayal .cats span {
+  font-family: Cinzel, Georgia, serif;
+  font-size: .59rem;
+  letter-spacing: .14em;
+  color: #8d7a63;
+  border: 1px solid #3a1620;
+  padding: 4px 9px;
+}
+.t-betrayal .tile-go {
+  font-family: Cinzel, Georgia, serif;
+  font-size: .75rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: #e8c34a;
+}
+
+/* ---- 2. 三更：殭屍 ------------------------------------------------------ */
+.t-jiangshi > a {
+  background: radial-gradient(85% 60% at 50% 8%, #1a1b20 0%, #0a0b0d 66%);
+  border: 1px solid #2b3039;
+}
+/* The night the menu sits in: the ground goes black toward the bottom. */
+.t-jiangshi > a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 170px;
+  background: linear-gradient(180deg, rgba(10, 11, 13, 0) 0%, #07080a 82%);
+  pointer-events: none;
+}
+.t-jiangshi .lantern { position: absolute; left: 20px; top: 26px; }
+.t-jiangshi .lantern-far { position: absolute; right: 22px; top: 64px; opacity: .7; }
+.t-jiangshi .tile-body { padding: 110px 26px 30px; text-align: center; }
+.t-jiangshi .tile-name {
+  font-family: var(--font-cjk);
+  font-weight: 900;
+  font-size: 2.5rem;
+  letter-spacing: .11em;
+  color: var(--gold);
+  text-shadow: 0 0 26px rgba(201, 162, 75, .3);
+}
+.t-jiangshi .kicker {
+  display: block;
+  margin: 10px 0 16px;
+  font-family: Cinzel, Georgia, serif;
+  font-size: .625rem;
+  letter-spacing: .2em;
+  color: #9c3b32;
+}
+.t-jiangshi .tile-blurb {
+  margin-bottom: 26px;
+  font-family: var(--font-cjk);
+  font-size: .94rem;
+  line-height: 1.95;
+  color: var(--muted);
+}
+/* The talisman, copied from .talisman in the game's own stylesheet: the ochre
+   paper gradient, the notch cut off the right edge, the red rule inset within. */
+.t-jiangshi .tile-go {
+  position: relative;
+  gap: 9px;
+  padding: 11px 26px 11px 13px;
+  color: #33240d;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .08) 0 22%, rgba(0, 0, 0, 0) 60%),
+    linear-gradient(178deg, #c6a763 0%, #b6944f 58%, #a3843f 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 15px) 50%, 100% 100%, 0 100%);
+}
+.t-jiangshi .tile-go::before {
+  content: "";
+  position: absolute;
+  inset: 4px 19px 4px 4px;
+  border: 1px solid rgba(142, 39, 35, .32);
+}
+.t-jiangshi .tile-go i {
+  font-style: normal;
+  font-family: var(--font-cjk);
+  font-size: .69rem;
+  font-weight: 600;
+  color: #8e2723;
+  border: 1px solid rgba(142, 39, 35, .5);
+  padding: 1px 4px;
+}
+.t-jiangshi .tile-go b {
+  font-family: var(--font-cjk);
+  font-size: 1.13rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
+
+/* ---- 3. Zombie in My Pocket -------------------------------------------- */
+.t-zombie > a {
+  background: radial-gradient(120% 90% at 50% 0%, #14161a 0%, #0a0b0d 72%);
+  border: 1px solid #2b3039;
+}
+.t-zombie .house {
+  position: absolute;
+  left: 50%; bottom: 0;
+  transform: translateX(-50%);
+  opacity: .55;
+  pointer-events: none;
+}
+.t-zombie .moon { position: absolute; right: 22px; top: 22px; }
+.t-zombie .tile-body { padding: 34px 28px 32px; }
+.t-zombie .tile-name {
+  margin-bottom: 12px;
+  /* The stack the game itself declares. It does not load the webfont, so this
+     renders as Georgia for almost everyone — matching it means copying the
+     declaration, not importing a face the game never serves. */
+  font-family: "IM Fell English", Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  line-height: 1.1;
+  color: #e6e3dc;
+}
+.t-zombie .tile-blurb {
+  margin-bottom: 22px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.t-zombie .tile-go {
+  padding: 10px 22px;
+  border: 1px solid var(--accent);
+  border-radius: 9px;
+  background: #1b1e24;
+  color: #e6e3dc;
+  font-size: .875rem;
+}
+
+/* ---- 4. Elevator Inc. --------------------------------------------------- */
+.t-elevator > a { background: #5bc6f2; }
+/* The grass the tower stands on. */
+.t-elevator > a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 76px;
+  background: #3ad39a;
+  border-top: 5px solid #2ab887;
+}
+.t-elevator .sun { position: absolute; left: 22px; top: 20px; }
+.t-elevator .cloud { position: absolute; right: 20px; top: 30px; }
+.t-elevator .tile-body {
+  padding: 92px 26px 34px;
+  display: flex;
+  gap: 22px;
+  align-items: flex-end;
+  z-index: 1;
+}
+.t-elevator .tower { flex-shrink: 0; }
+.t-elevator .tile-name {
+  margin-bottom: 14px;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: 1.06rem;
+  line-height: 1.45;
+  color: #16183a;
+}
+.t-elevator .tile-blurb {
+  margin-bottom: 16px;
+  font-family: "Pixelify Sans", "Courier New", monospace;
+  font-size: 1.06rem;
+  line-height: 1.45;
+  color: #16183a;
+}
+.t-elevator .tile-go {
+  padding: 10px 20px;
+  background: #ffd23f;
+  border: 3px solid #16183a;
+  box-shadow: 4px 4px 0 #16183a;
+  font-family: "Press Start 2P", "Courier New", monospace;
+  font-size: .625rem;
+  color: #16183a;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile > a, .tile-go { transition: none; }
+  .tile > a:hover { transform: none; }
+}
 
 .badge {
   position: absolute;
@@ -81,7 +340,3 @@ body {
 .hub-foot { text-align: center; margin-top: 48px; }
 .hub-foot a { color: var(--muted); text-decoration: none; font-size: .9rem; }
 .hub-foot a:hover { color: var(--text); }
-
-/* The zh line under a bilingual card title — quieter than the title, louder
-   than the blurb, and absent from cards that have no Chinese name. */
-.card-title-zh { display: block; font-size: 0.95rem; opacity: .8; margin-top: -2px; }
