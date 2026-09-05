@@ -60,9 +60,11 @@
          painted from that game's own stylesheet, and add a matching <url>
          line in src/index.js SITEMAP_URLS.
 
-         Source order is not visual order: CSS columns fill top-to-bottom then
-         across. This order puts the tall Betrayal tile and the short Zombie
-         one in the same column so the board staggers. -->
+         Source order is not visual order. CSS columns balance by HEIGHT, not
+         by the order written here, so which tile lands in which column is the
+         browser's call and shifts as copy changes -- at three columns this
+         order currently yields Betrayal alone, then Zombie above the Jiangshi,
+         then Elevator. Worth re-checking after editing any blurb. -->
     <ul class="board">
       <li class="tile t-betrayal">
         <a href="/betrayal_sound_board/">

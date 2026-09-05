@@ -85,13 +85,20 @@ body {
 .tile-name { display: block; margin: 0; }
 .tile-blurb { display: block; }
 
-/* The call to action reveals on hover, the way a pin does — but only where
-   hovering exists. On a touch screen there is no hover to reveal it with, so
-   it stays visible and the tile keeps an obvious way in. */
-.tile-go { display: inline-flex; align-items: center; gap: 9px; }
+/* The call to action stays visible. Revealing it on hover was the original
+   idea -- pin-like -- but a hidden-yet-still-laid-out button leaves a hole in
+   the bottom of the tile at rest, which is what a first look showed: the
+   Betrayal and Jiangshi tiles both ended in dead space. Hover now only lifts
+   the whole tile, which it already did. */
+.tile-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  transition: opacity .22s ease;
+}
 @media (hover: hover) and (pointer: fine) {
-  .tile-go { opacity: 0; transform: translateY(4px); transition: opacity .22s ease, transform .22s ease; }
-  .tile > a:hover .tile-go { opacity: 1; transform: translateY(0); }
+  .tile-go { opacity: .82; }
+  .tile > a:hover .tile-go { opacity: 1; }
 }
 
 /* ---- 1. Betrayal Sound Board ------------------------------------------- */
