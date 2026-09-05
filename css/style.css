@@ -1,14 +1,21 @@
 /* Hub landing page for games.csiesheep.com */
 
 :root {
-  --bg: #0b0c10;
-  --bg-2: #14161c;
-  --panel: #1a1d24;
-  --border: #2a2f3a;
-  --text: #e8e6e0;
-  --muted: #9aa0aa;
+  /* Pure white, not a warm off-white. The sheep is a JPEG carrying its own
+     white ground, so any tint would show its bounding box as a paler rectangle
+     behind the drawing. */
+  --bg: #ffffff;
+  --border: #e7e4dd;
+  --text: #141414;      /* the ink the drawing is outlined in */
+  --body: #3c3a35;
+  --muted: #6b6862;
+  /* --accent is the green as the games use it, on their own near-black tiles.
+     On white it reaches only ~2.3:1, so hub text takes --leaf instead: same
+     hue, carried down to a weight that reads. */
   --accent: #7fb539;
+  --leaf: #4f7d1f;
   --gold: #c9a24b;
+  --sun: #fff000;       /* the drawing's big diamond */
   --radius: 12px;
   --font-head: Georgia, "Times New Roman", serif;
   --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -21,24 +28,45 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
 body {
-  background: radial-gradient(120% 90% at 50% 0%, var(--bg-2), var(--bg));
-  color: var(--text);
+  background: var(--bg);
+  color: var(--body);
   font-family: var(--font-body);
   line-height: 1.6;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
-.wrap { max-width: 1120px; margin: 0 auto; padding: 64px 20px 80px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 56px 20px 80px; }
 
-.hub-head { text-align: center; margin-bottom: 48px; }
+.hub-head { text-align: center; margin-bottom: 46px; }
+.hub-mark {
+  display: block;
+  width: min(320px, 66%);
+  height: auto;
+  margin: 0 auto 8px;
+}
+/* The wordmark in the drawing's own treatment: every coloured area in the
+   sheep is a flat fill inside a heavy black line, so the letters get the same.
+   The ring is text-shadow rather than -webkit-text-stroke because it has to
+   render everywhere -- the yellow alone is about 1.1:1 on white and simply
+   disappears, so the outline is legibility, not decoration. */
 .hub-head h1 {
   font-family: var(--font-head);
-  font-size: clamp(2.4rem, 7vw, 3.6rem);
+  font-size: clamp(2.2rem, 6.4vw, 3.2rem);
   margin: 0;
   letter-spacing: .01em;
+  font-weight: 400;
 }
-.hub-head h1 span { color: var(--accent); }
-.tagline { color: var(--muted); margin: 8px 0 0; }
+.hub-head h1 i,
+.hub-head h1 span {
+  font-style: normal;
+  text-shadow:
+    -2px 0 var(--text), 2px 0 var(--text), 0 -2px var(--text), 0 2px var(--text),
+    -2px -2px var(--text), 2px -2px var(--text), -2px 2px var(--text), 2px 2px var(--text);
+}
+.hub-head h1 i { color: #fffcc2; }   /* the wool */
+.hub-head h1 span { color: var(--sun); }
+.tagline { color: var(--muted); margin: 10px 0 0; }
 
 /* ---------------------------------------------------------------------------
    The board.
@@ -75,9 +103,15 @@ body {
   overflow: hidden;
   border-radius: 16px;
   text-decoration: none;
+  /* On the old dark page the ground separated the tiles. On paper they have to
+     carry their own edge, so each one gets a hairline and a soft drop. */
+  box-shadow: 0 1px 2px rgba(20, 20, 20, .07), 0 10px 26px -16px rgba(20, 20, 20, .42);
   transition: transform .22s ease, box-shadow .22s ease;
 }
-.tile > a:hover { transform: translateY(-4px); box-shadow: 0 22px 46px -26px #000; }
+.tile > a:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 2px 4px rgba(20, 20, 20, .09), 0 20px 40px -20px rgba(20, 20, 20, .5);
+}
 .tile > a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
 
 .tile-body { position: relative; }
