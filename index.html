@@ -29,13 +29,16 @@
   <meta property="og:description" content="Free, browser-based board-game companions and games. No installs, no sign-up.">
   <meta property="og:url" content="https://games.csiesheep.com/">
 
-  <!-- Only the faces the games themselves serve: Cinzel/Crimson are what the
-       sound board loads, Press Start 2P/Pixelify what Elevator Inc. loads. The
+  <!-- Only the faces the games themselves serve AND a tile actually uses:
+       Cinzel/Crimson are what the sound board loads, Press Start 2P/Pixelify
+       what Elevator Inc. loads, Bungee what Dice Wars sets its title in. (Dice
+       Wars also serves Nunito, but its tile's body inherits the hub's system
+       stack, so loading Nunito here would be bytes nothing references.) The
        Jiangshi and Zombie load no webfonts at all, so their tiles use the same
        system stacks their own pages fall back to — see --font-cjk in style.css. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&amp;family=Cinzel:wght@500;600&amp;family=Crimson+Text&amp;family=Press+Start+2P&amp;family=Pixelify+Sans:wght@500&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&amp;family=Cinzel:wght@500;600&amp;family=Crimson+Text&amp;family=Press+Start+2P&amp;family=Pixelify+Sans:wght@500&amp;family=Bungee&amp;display=swap">
 
   <link rel="stylesheet" href="css/style.css">
 
