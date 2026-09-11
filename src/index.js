@@ -56,6 +56,7 @@ const SITEMAP_URLS = [
   { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-21", priority: "0.9" },
   { loc: ORIGIN + "/jiangshi_in_the_pocket/", lastmod: "2026-08-29", priority: "0.9" },
   { loc: ORIGIN + "/elevator_inc/", lastmod: "2026-09-04", priority: "0.9" },
+  { loc: ORIGIN + "/dice_war/", lastmod: "2026-09-11", priority: "0.9" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
