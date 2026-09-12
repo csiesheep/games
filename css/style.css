@@ -395,59 +395,70 @@ body {
 }
 
 /* ---- 6. 天地會 ------------------------------------------------------------
-   Painted from the game's own stylesheet: its paper, ink rules, the vermilion
-   seal, WenKai for the title and Noto Serif TC for the rest. Square corners
-   there; the tile keeps the hub's radius so the board stays one board. */
+   Painted from the game's own stylesheet: its paper, ink rule, the vermilion
+   seal as the centrepiece, WenKai for the name and Noto Serif TC for the
+   rest. Square corners there; the tile keeps the hub's radius so the board
+   stays one board. */
 .t-tiandihui > a {
   background:
-    radial-gradient(120% 70% at 50% 0%, rgba(255, 250, 236, .6) 0%, rgba(255, 250, 236, 0) 60%),
+    radial-gradient(120% 60% at 50% 0%, rgba(255, 250, 236, .65) 0%, rgba(255, 250, 236, 0) 60%),
+    radial-gradient(90% 40% at 50% 110%, rgba(124, 92, 52, .2) 0%, rgba(124, 92, 52, 0) 60%),
     #ece2cb;
   border: 1px solid #1e1a16;
 }
-.t-tiandihui .tile-seal { position: absolute; right: 24px; top: 22px; transform: rotate(-6deg); opacity: .94; }
-.t-tiandihui .tile-body { padding: 30px 26px 30px; }
+.t-tiandihui .tile-body {
+  padding: 30px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.t-tiandihui .tile-seal { transform: rotate(-6deg); opacity: .95; }
 .t-tiandihui .tile-name {
-  margin-bottom: 8px;
+  margin: 22px 0 6px;
   font-family: "LXGW WenKai TC", var(--font-cjk);
   font-weight: 700;
-  font-size: 2.6rem;
+  font-size: 3rem;
   line-height: 1;
-  letter-spacing: .06em;
+  letter-spacing: .12em;
+  text-indent: .12em;
   color: #1e1a16;
 }
 .t-tiandihui .kicker {
   display: block;
-  margin: 0 0 18px;
   font-family: var(--font-cjk);
   font-size: .625rem;
-  letter-spacing: .22em;
+  letter-spacing: .28em;
+  text-indent: .28em;
   color: #8a2a22;
 }
+.t-tiandihui .rule { display: block; width: 44px; height: 1px; margin: 18px 0 16px; background: #1e1a16; }
 .t-tiandihui .tile-blurb {
-  margin-bottom: 22px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(30, 26, 22, .35);
+  margin-bottom: 24px;
   font-family: var(--font-cjk);
-  font-size: .94rem;
-  line-height: 1.7;
+  font-size: .875rem;
+  line-height: 1.75;
   color: #4a3f35;
 }
 .t-tiandihui .tile-go {
+  align-self: stretch;
+  justify-content: center;
   gap: 12px;
-  padding: 11px 20px;
+  height: 46px;
   background: #b5322a;
   color: #f4ead6;
 }
 .t-tiandihui .tile-go b {
   font-family: var(--font-cjk);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 700;
-  letter-spacing: .2em;
+  letter-spacing: .24em;
+  text-indent: .24em;
 }
 .t-tiandihui .tile-go i {
   font-style: normal;
   font-family: var(--font-cjk);
-  font-size: .72rem;
+  font-size: .69rem;
   letter-spacing: .16em;
   color: rgba(244, 234, 214, .8);
 }
