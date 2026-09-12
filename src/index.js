@@ -33,8 +33,7 @@ const ROBOTS_TXT =
   "Sitemap: " + ORIGIN + "/sitemap.xml\n" +
   "Sitemap: " + ORIGIN + "/zombie_in_the_pocket/sitemap.xml\n" +
   "Sitemap: " + ORIGIN + "/jiangshi_in_the_pocket/sitemap.xml\n" +
-  "Sitemap: " + ORIGIN + "/tiandihui/sitemap.xml\n" +
-  "Sitemap: " + ORIGIN + "/the_resistance/sitemap.xml\n";
+  "Sitemap: " + ORIGIN + "/tiandihui/sitemap.xml\n";
 
 // The one sitemap for the whole subdomain. Add a line per game as it launches.
 //
@@ -60,7 +59,6 @@ const SITEMAP_URLS = [
   { loc: ORIGIN + "/elevator_inc/", lastmod: "2026-09-04", priority: "0.9" },
   { loc: ORIGIN + "/dice_war/", lastmod: "2026-09-11", priority: "0.9" },
   { loc: ORIGIN + "/tiandihui/", lastmod: "2026-09-12", priority: "0.9" },
-  { loc: ORIGIN + "/the_resistance/", lastmod: "2026-09-11", priority: "0.8" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
