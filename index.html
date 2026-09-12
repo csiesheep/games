@@ -34,12 +34,13 @@
        what Elevator Inc. loads, Bungee what Dice Wars sets its title in. (Dice
        Wars also serves Nunito, but its tile's body inherits the hub's system
        stack, so loading Nunito here would be bytes nothing references.) LXGW
-       WenKai TC is what 天地會 sets its title in. The Jiangshi and Zombie load
+       WenKai TC is what 天地會 sets its title in; Barlow Condensed is The
+       Resistance's display face. The Jiangshi and Zombie load
        no webfonts at all, so their tiles use the same system stacks their own
        pages fall back to — see --font-cjk in style.css. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&amp;family=Cinzel:wght@500;600&amp;family=Crimson+Text&amp;family=Press+Start+2P&amp;family=Pixelify+Sans:wght@500&amp;family=Bungee&amp;family=LXGW+WenKai+TC:wght@700&amp;display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@900&amp;family=Cinzel:wght@500;600&amp;family=Crimson+Text&amp;family=Press+Start+2P&amp;family=Pixelify+Sans:wght@500&amp;family=Bungee&amp;family=LXGW+WenKai+TC:wght@700&amp;family=Barlow+Condensed:wght@800&amp;display=swap">
 
   <link rel="stylesheet" href="css/style.css">
 
@@ -182,6 +183,24 @@
             <span class="rule"></span>
             <span class="tile-blurb">Five to ten swear the oath; a few are informing for the Qing. Three missions decide it &mdash; solo against bots that talk, or in a room with friends.</span>
             <span class="tile-go"><b lang="zh-Hant">一起反清復明</b><i>Play</i></span>
+          </div>
+        </a>
+      </li>
+
+      <li class="tile t-resistance">
+        <a href="/the_resistance/">
+          <span class="badge">fan-made &middot; unofficial</span>
+          <div class="tile-body">
+            <svg class="tile-mark" width="150" height="30" viewBox="0 0 150 30" aria-hidden="true">
+              <circle cx="15" cy="15" r="13" fill="#3f8fe0"/>
+              <circle cx="45" cy="15" r="13" fill="#3f8fe0"/>
+              <circle cx="75" cy="15" r="13" fill="#d9463d"/>
+              <circle cx="105" cy="15" r="12" fill="none" stroke="#d9a441" stroke-width="2"/>
+              <circle cx="135" cy="15" r="12" fill="none" stroke="#2c3542" stroke-width="2"/>
+            </svg>
+            <h2 class="tile-name">THE RESIST<b>ANCE</b></h2>
+            <span class="tile-blurb">Five to ten of you. Two, three or four are spies. Send three missions through before they sink three &mdash; against bots, or in a room with friends.</span>
+            <span class="tile-go">Play</span>
           </div>
         </a>
       </li>

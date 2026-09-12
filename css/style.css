@@ -463,6 +463,46 @@ body {
   color: rgba(244, 234, 214, .8);
 }
 
+/* ---- 7. The Resistance ----------------------------------------------------
+   The dark table from the game's own stylesheet: its near-black ground and
+   hairline, blue for missions won, red for missions lost, gold for the
+   current one, Barlow Condensed for the name. The badge takes the game's
+   gold rather than the hub's. */
+.t-resistance > a {
+  background: radial-gradient(120% 80% at 50% 0%, #161b23 0%, #0e1116 70%);
+  border: 1px solid #2c3542;
+}
+.t-resistance .badge { color: #d9a441; border-color: #6d4f17; }
+.t-resistance .tile-body { padding: 30px 26px 30px; }
+.t-resistance .tile-mark { margin-bottom: 22px; }
+.t-resistance .tile-name {
+  margin-bottom: 12px;
+  font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  font-weight: 800;
+  font-size: 2.6rem;
+  line-height: .9;
+  letter-spacing: .01em;
+  color: #ebe6da;
+}
+.t-resistance .tile-name b { font-weight: 800; color: #d9463d; }
+.t-resistance .tile-blurb {
+  margin-bottom: 22px;
+  font-size: .98rem;
+  line-height: 1.55;
+  color: #8d97a6;
+}
+.t-resistance .tile-go {
+  padding: 11px 22px;
+  border-radius: 8px;
+  background: #3f8fe0;
+  color: #fff;
+  font-family: "Barlow Condensed", "Arial Narrow", Impact, sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
 .badge {
   position: absolute;
   top: 14px;
