@@ -463,6 +463,77 @@ body {
   color: rgba(244, 234, 214, .8);
 }
 
+/* ---- 6b. 末班夜車 ---------------------------------------------------------
+   Painted from the game's own stylesheet: the night-carriage ground, bone
+   text, dim brass for the watch and the rule, Noto Serif TC for the name and
+   Cormorant italic for the kicker. Square corners there; the tile keeps the
+   hub's radius so the board stays one board. */
+.t-last-train > a {
+  background:
+    radial-gradient(90% 50% at 50% 0%, rgba(201, 165, 79, .10) 0%, rgba(201, 165, 79, 0) 60%),
+    #0e121b;
+  border: 1px solid #a8863a;
+}
+.t-last-train .badge { background: #a8863a; color: #090c13; }
+.t-last-train .tile-body {
+  padding: 30px 26px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.t-last-train .tile-watch { opacity: .95; }
+.t-last-train .tile-name {
+  margin: 18px 0 6px;
+  font-family: "Noto Serif TC", var(--font-cjk);
+  font-weight: 700;
+  font-size: 2.9rem;
+  line-height: 1;
+  letter-spacing: .08em;
+  text-indent: .08em;
+  color: #e6dfd0;
+}
+.t-last-train .kicker {
+  display: block;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-style: italic;
+  font-size: .9rem;
+  letter-spacing: .18em;
+  text-indent: .18em;
+  color: #c9a54f;
+}
+.t-last-train .rule { display: block; width: 44px; height: 1px; margin: 18px 0 16px; background: #a8863a; }
+.t-last-train .tile-blurb {
+  margin-bottom: 24px;
+  font-family: var(--font-cjk);
+  font-size: .875rem;
+  line-height: 1.75;
+  color: #b7bccb;
+}
+.t-last-train .tile-go {
+  align-self: stretch;
+  justify-content: center;
+  gap: 12px;
+  height: 46px;
+  background: #e6dfd0;
+  color: #090c13;
+  border-radius: 2px;
+}
+.t-last-train .tile-go b {
+  font-family: var(--font-cjk);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .24em;
+  text-indent: .24em;
+}
+.t-last-train .tile-go i {
+  font-style: normal;
+  font-family: var(--font-cjk);
+  font-size: .69rem;
+  letter-spacing: .16em;
+  color: rgba(9, 12, 19, .7);
+}
+
 /* ---- 7. The Resistance ----------------------------------------------------
    The dark table from the game's own stylesheet: its near-black ground and
    hairline, blue for missions won, red for missions lost, gold for the
