@@ -465,26 +465,45 @@ body {
 
 /* ---- 6b. 末班夜車 ---------------------------------------------------------
    Painted from the game's own stylesheet: the night-carriage ground, bone
-   text, dim brass for the watch and the rule, Noto Serif TC for the name and
-   Cormorant italic for the kicker. Square corners there; the tile keeps the
-   hub's radius so the board stays one board. */
+   text, dim brass for the rule, Noto Serif TC for the name and Cormorant
+   italic for the kicker. Square corners there; the tile keeps the hub's
+   radius so the board stays one board.
+
+   A line-art mark used to stand where the photograph is now. The game owns a
+   painted platform and the tile is the only place on the hub it can be seen,
+   so the picture leads and the night gradient hands it over to the type. */
 .t-last-train > a {
-  background:
-    radial-gradient(90% 50% at 50% 0%, rgba(201, 165, 79, .10) 0%, rgba(201, 165, 79, 0) 60%),
-    #0e121b;
+  background: #0e121b;
   border: 1px solid #a8863a;
 }
-.t-last-train .badge { background: #a8863a; color: #090c13; }
+.t-last-train .tile-photo { position: relative; height: 214px; overflow: hidden; }
+.t-last-train .tile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* the lamp and the two passengers sit above centre */
+  object-position: 50% 42%;
+}
+.t-last-train .tile-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 18, 27, 0) 40%, rgba(14, 18, 27, .6) 76%, #0e121b 100%);
+}
 .t-last-train .tile-body {
-  padding: 30px 26px 26px;
+  position: relative;
+  /* the name rides up into the foot of the picture, where the black already is */
+  margin-top: -30px;
+  padding: 0 26px 26px;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
 }
-.t-last-train .tile-watch { opacity: .95; }
 .t-last-train .tile-name {
-  margin: 18px 0 6px;
+  margin: 0 0 6px;
+  text-shadow: 0 2px 16px rgba(9, 12, 19, .95);
   font-family: "Noto Serif TC", var(--font-cjk);
   font-weight: 700;
   font-size: 2.9rem;
