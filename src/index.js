@@ -52,8 +52,12 @@ const ROBOTS_TXT =
 // Google ignores lastmod wholesale once it finds it unreliable, so a wrong
 // date is worse than none: if these stop being updated, delete the field
 // rather than leave it stale.
+// The front page is listed twice, once per language. Each version names the
+// other through <link rel="alternate" hreflang> in index.html; listing both
+// here just makes sure a crawler finds the Chinese one without following them.
 const SITEMAP_URLS = [
-  { loc: ORIGIN + "/", lastmod: "2026-09-16", priority: "1.0" },
+  { loc: ORIGIN + "/", lastmod: "2026-09-17", priority: "1.0" },
+  { loc: ORIGIN + "/?lang=zh-Hant", lastmod: "2026-09-17", priority: "1.0" },
   { loc: ORIGIN + "/betrayal_sound_board/", lastmod: "2026-08-29", priority: "0.9" },
   { loc: ORIGIN + "/zombie_in_the_pocket/", lastmod: "2026-08-21", priority: "0.9" },
   { loc: ORIGIN + "/jiangshi_in_the_pocket/", lastmod: "2026-08-29", priority: "0.9" },
@@ -83,6 +87,55 @@ function text(body, type = "text/plain; charset=utf-8") {
   return new Response(body, { headers: { "content-type": type } });
 }
 
+// ---- The Chinese front page ------------------------------------------------
+//
+// index.html carries both languages and switches between them in the browser,
+// so to a crawler that runs no script -- and to a link preview, which never
+// does -- there is only one page, and it is English. /?lang=zh-Hant is the
+// Chinese one made real: the same file, with <html lang> and the head
+// rewritten here before it leaves. The body needs nothing -- its CSS shows the
+// Chinese half whenever <html lang="zh-Hant">.
+//
+// Only this exact value. ?lang=en and every other query get the English page
+// untouched, whose canonical already points at "/".
+const ZH = "zh-Hant";
+const ZH_URL = ORIGIN + "/?lang=" + ZH;
+const ZH_HEAD = {
+  title: "csiesheep 的遊戲 — 免費的瀏覽器桌遊與小工具",
+  description: "csiesheep 做的免費瀏覽器桌遊與桌遊小幫手。不用安裝，不用註冊。",
+  ogTitle: "csiesheep 的遊戲",
+  ogDescription: "免費的瀏覽器桌遊與桌遊小幫手。不用安裝，不用註冊。",
+};
+
+function set(attr, value) {
+  return { element(e) { e.setAttribute(attr, value); } };
+}
+
+function toChinese(res) {
+  const type = res.headers.get("content-type") || "";
+  if (res.status !== 200 || !type.includes("text/html")) return res;
+
+  const out = new HTMLRewriter()
+    .on("html", set("lang", ZH))
+    .on("title", { element(e) { e.setInnerContent(ZH_HEAD.title); } })
+    .on('meta[name="description"]', set("content", ZH_HEAD.description))
+    .on('link[rel="canonical"]', set("href", ZH_URL))
+    .on('meta[property="og:url"]', set("content", ZH_URL))
+    .on('meta[property="og:title"]', set("content", ZH_HEAD.ogTitle))
+    .on('meta[property="og:description"]', set("content", ZH_HEAD.ogDescription))
+    .on('meta[property="og:locale"]', set("content", "zh_TW"))
+    .on('meta[property="og:locale:alternate"]', set("content", "en_US"))
+    // The sheep's alt text, for readers that never run the page's script.
+    .on("img.hub-mark", { element(e) { const zh = e.getAttribute("data-alt-zh"); if (zh) e.setAttribute("alt", zh); } })
+    .transform(res);
+
+  // The asset's ETag describes the English bytes. These are not those bytes,
+  // so it must not be offered back for a 304.
+  const headers = new Headers(out.headers);
+  headers.delete("etag");
+  return new Response(out.body, { status: out.status, headers });
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -91,6 +144,8 @@ export default {
     if (url.pathname === "/robots.txt") return text(ROBOTS_TXT);
     if (url.pathname === "/sitemap.xml") return text(SITEMAP_XML, "application/xml; charset=utf-8");
 
-    return env.ASSETS.fetch(request);
+    const res = await env.ASSETS.fetch(request);
+    if (url.pathname === "/" && url.searchParams.get("lang") === ZH) return toChinese(res);
+    return res;
   },
 };

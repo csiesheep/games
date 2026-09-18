@@ -217,7 +217,10 @@ body {
 }
 .t-jiangshi .lantern { position: absolute; left: 20px; top: 26px; }
 .t-jiangshi .lantern-far { position: absolute; right: 22px; top: 64px; opacity: .7; }
-.t-jiangshi .tile-body { padding: 110px 26px 30px; text-align: center; }
+/* z-index: the night gradient above is the tile's last-painted box, so without
+   this it sat OVER the text -- the talisman and the blurb's last lines went
+   muddy. The body stacks above the night, the lanterns stay behind it. */
+.t-jiangshi .tile-body { padding: 110px 26px 30px; text-align: center; z-index: 1; }
 .t-jiangshi .tile-name {
   font-family: var(--font-cjk);
   font-weight: 900;
@@ -609,3 +612,91 @@ body {
 .hub-foot { text-align: center; margin-top: 48px; }
 .hub-foot a { color: var(--muted); text-decoration: none; font-size: .9rem; }
 .hub-foot a:hover { color: var(--text); }
+
+/* ===========================================================================
+   Two languages.
+
+   Every string a reader sees exists twice in index.html, one half tagged
+   data-l="en" and the other data-l="zh" lang="zh-Hant". <html lang> decides
+   which half shows, so switching is one attribute flip: no re-render, and no
+   layout script. The Worker sets <html lang> on the server for
+   /?lang=zh-Hant, so a crawler sees the Chinese page without running anything.
+=========================================================================== */
+html[lang="en"] [data-l="zh"],
+html[lang="zh-Hant"] [data-l="en"] { display: none !important; }
+
+:root {
+  /* The sans counterpart to --font-cjk, for tiles whose Latin face is a sans
+     (Elevator, Dice Wars, The Resistance) and for the hub's own chrome. No
+     webfont: the system CJK faces are good and a CJK webfont is megabytes. */
+  --font-cjk-sans: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", "Heiti TC", sans-serif;
+}
+[data-l="zh"] { font-family: var(--font-cjk-sans); }
+
+/* Latin display faces carry no CJK glyphs, so each Chinese string names the
+   CJK face that suits its tile: serif where the tile is serif, sans where sans. */
+/* 天地會 and 末班夜車 set even their English in --font-cjk, so their Chinese
+   must stay serif too -- the sans default above would otherwise win. */
+.t-betrayal [data-l="zh"],
+.t-zombie [data-l="zh"],
+.t-jiangshi [data-l="zh"],
+.t-tiandihui [data-l="zh"],
+.t-last-train [data-l="zh"] { font-family: var(--font-cjk); }
+.t-betrayal .kicker [data-l="zh"] { font-size: .8rem; letter-spacing: .5em; font-weight: 600; }
+/* Needs the font-family again: `.t-betrayal .cats span` targets these chips
+   directly and outranks the rule above, so Cinzel would win and the Chinese
+   would fall to whatever the OS picks. */
+.t-betrayal .cats [data-l="zh"] { font-family: var(--font-cjk); letter-spacing: .2em; font-size: .7rem; }
+.t-betrayal .tile-go [data-l="zh"] { letter-spacing: .3em; font-size: .85rem; }
+.t-resistance .tile-name [data-l="zh"] { font-family: var(--font-cjk-sans); font-weight: 800; letter-spacing: .06em; }
+.t-resistance .tile-go [data-l="zh"] { letter-spacing: .3em; }
+.t-elevator .tile-go [data-l="zh"] { font-weight: 700; letter-spacing: .3em; font-size: .85rem; }
+.t-dice .tile-go [data-l="zh"] { letter-spacing: .3em; }
+.hub-head .tagline[data-l="zh"] { letter-spacing: .04em; }
+
+/* The Jiangshi's talisman gets the English gloss its own menu carries
+   (START beside 開始) -- only while the page is in English. */
+.t-jiangshi .tile-go .gloss {
+  font-family: Cinzel, Georgia, serif;
+  font-size: .62rem;
+  letter-spacing: .26em;
+  color: #5c4526;
+}
+
+/* A game with no Chinese says so -- but only to someone reading Chinese. In
+   English the note would be noise, so it lives only in the zh half. */
+.en-only {
+  margin-left: 12px;
+  font-size: .72rem;
+  letter-spacing: .12em;
+  vertical-align: middle;
+  opacity: .75;
+}
+.t-betrayal .en-only { color: #8d7a63; }
+.t-zombie .en-only { color: #9aa0aa; }
+.t-dice .en-only { color: #8f9cb3; }
+
+/* ---- the switch ----------------------------------------------------------
+   The object every bilingual game here already uses: one pill, labelled with
+   the language you would switch TO. A reader stuck in the wrong language
+   looks for their own script, and this is where they find it. Top right, so
+   it never pushes the tiles down. */
+.wrap { position: relative; }
+.lang-switch {
+  position: absolute;
+  top: 18px;
+  right: 20px;
+  padding: 6px 15px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: .9rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color .18s, color .18s;
+}
+.lang-switch [lang="zh-Hant"] { font-family: var(--font-cjk-sans); letter-spacing: .08em; }
+.lang-switch:hover { border-color: var(--text); color: var(--text); }
+.lang-switch:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
