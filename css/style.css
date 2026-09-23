@@ -700,3 +700,87 @@ html[lang="zh-Hant"] [data-l="en"] { display: none !important; }
 .lang-switch [lang="zh-Hant"] { font-family: var(--font-cjk-sans); letter-spacing: .08em; }
 .lang-switch:hover { border-color: var(--text); color: var(--text); }
 .lang-switch:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+/* ---- 9. 縱橫 Zongheng ---------------------------------------------------- */
+/* The game's own ground: near-black with a gold hairline, the same pair its
+   table uses. The picture is its ink map; the two medallions are cut from the
+   side-choosing screen, so the tile shows the same two animals the player
+   meets one tap later. */
+.t-zongheng > a {
+  background: #141210;
+  border: 1px solid #8a6f2e;
+}
+/* Not clipped, unlike the other photo tiles: the two medallions hang past the
+   picture's foot on purpose, and the rounded corners are already cut by the
+   <a> above, which does clip. */
+.t-zongheng .tile-photo { position: relative; height: 200px; }
+.t-zongheng .tile-photo .bg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* the range and the river read best a little above centre */
+  object-position: 50% 44%;
+}
+.t-zongheng .tile-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 18, 16, 0) 34%, rgba(20, 18, 16, .72) 74%, #141210 100%);
+}
+/* The medallions straddle the picture's foot, so the title sits between them. */
+.t-zongheng .emb {
+  position: absolute;
+  bottom: -26px;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 2px #c9a24b, 0 6px 18px rgba(0, 0, 0, .6);
+  z-index: 2;
+}
+.t-zongheng .emb-l { left: 24px; }
+.t-zongheng .emb-r { right: 24px; }
+.t-zongheng .tile-body {
+  position: relative;
+  /* the name rides up into the foot of the picture, where the black already is */
+  margin-top: -30px;
+  padding: 0 20px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.t-zongheng .tile-name {
+  font-family: "Noto Serif TC", var(--font-cjk);
+  font-weight: 900;
+  font-size: 2.5rem;
+  line-height: 1;
+  letter-spacing: .14em;
+  text-indent: .14em;
+  color: #f0e7d2;
+  text-shadow: 0 2px 14px rgba(10, 8, 6, .95);
+  margin: 0 0 4px;
+}
+.t-zongheng .kicker {
+  display: block;
+  font-family: "Cinzel", Georgia, serif;
+  font-size: .8rem;
+  letter-spacing: .22em;
+  color: #c9a24b;
+  margin-bottom: 14px;
+}
+.t-zongheng .tile-blurb {
+  font: 400 .95rem/1.65 var(--font-body);
+  color: #cec6b4;
+}
+/* The seal-red button the game confirms with. */
+.t-zongheng .tile-go {
+  margin-top: 16px;
+  padding: 9px 20px;
+  border-radius: 999px;
+  background: #b3261e;
+  color: #fdf6e6;
+  font: 700 .95rem/1 var(--font-body);
+}
+.t-zongheng .tile-go i { font-style: normal; opacity: .78; font-size: .85rem; }

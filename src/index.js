@@ -34,7 +34,8 @@ const ROBOTS_TXT =
   "Sitemap: " + ORIGIN + "/zombie_in_the_pocket/sitemap.xml\n" +
   "Sitemap: " + ORIGIN + "/jiangshi_in_the_pocket/sitemap.xml\n" +
   "Sitemap: " + ORIGIN + "/tiandihui/sitemap.xml\n" +
-  "Sitemap: " + ORIGIN + "/last_train/sitemap.xml\n";
+  "Sitemap: " + ORIGIN + "/last_train/sitemap.xml\n" +
+  "Sitemap: " + ORIGIN + "/zongheng/sitemap.xml\n";
 
 // The one sitemap for the whole subdomain. Add a line per game as it launches.
 //
@@ -65,6 +66,7 @@ const SITEMAP_URLS = [
   { loc: ORIGIN + "/dice_war/", lastmod: "2026-09-11", priority: "0.9" },
   { loc: ORIGIN + "/tiandihui/", lastmod: "2026-09-12", priority: "0.9" },
   { loc: ORIGIN + "/last_train/", lastmod: "2026-09-16", priority: "0.9" },
+  { loc: ORIGIN + "/zongheng/", lastmod: "2026-09-22", priority: "0.9" },
 ];
 const SITEMAP_XML =
   '<?xml version="1.0" encoding="UTF-8"?>\n' +
