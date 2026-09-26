@@ -808,8 +808,10 @@ html[lang="zh-Hant"] [data-l="en"] { display: none !important; }
 .t-bored-games .plane {
   position: absolute;
   right: 22px;
-  top: 20px;
-  transform: rotate(4deg);
+  top: 14px;
+  /* Nose (+x in app.js's own coordinates) turned up and to the right, as if
+     just launched off the desk. */
+  transform: rotate(-25deg);
 }
 .t-bored-games .tile-body {
   position: relative;
