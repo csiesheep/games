@@ -784,3 +784,77 @@ html[lang="zh-Hant"] [data-l="en"] { display: none !important; }
   font: 700 .95rem/1 var(--font-body);
 }
 .t-zongheng .tile-go i { font-style: normal; opacity: .78; font-size: .85rem; }
+
+/* ---- 10. Bored Games -------------------------------------------------------
+   The game's own cover screen, not a summary of it: the workbook desk (green
+   grid on a pale green ground) with a hand-drawn cover label sitting on top,
+   the same pairing public/index.html paints behind the title screen. LXGW
+   WenKai TC for both the title and the body copy, as the game's own cover
+   sets it; the blue-pen paper plane echoes Paper Dogfight's own line art
+   (public/dogfight/draw.js draws exactly this kind of open, angular stroke). */
+.t-bored-games > a {
+  background: #e3e7da;
+  border: 1px solid #a9cdb9;
+}
+.t-bored-games > a::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, rgba(169, 205, 185, .55) 0 1px, transparent 1px 26px),
+    repeating-linear-gradient(90deg, rgba(169, 205, 185, .55) 0 1px, transparent 1px 26px);
+  pointer-events: none;
+}
+.t-bored-games .plane {
+  position: absolute;
+  right: 22px;
+  top: 14px;
+  /* Nose (+x in app.js's own coordinates) turned up and to the right, as if
+     just launched off the desk. */
+  transform: rotate(-25deg);
+}
+.t-bored-games .tile-body {
+  position: relative;
+  z-index: 1;
+  padding: 34px 26px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+/* The cover label: paper on the desk, a pencil-drawn border that is not a
+   rectangle -- each corner's radius differs, and the whole label sits at a
+   small tilt, the way a paper label taped to a workbook does. */
+.t-bored-games .cover {
+  background: #f8f9f3;
+  border: 2px solid #3a3f46;
+  border-radius: 3px 16px 6px 13px / 12px 4px 15px 5px;
+  padding: 16px 24px;
+  margin: 8px 0 18px;
+  transform: rotate(-1.2deg);
+}
+.t-bored-games .tile-name {
+  font-family: "LXGW WenKai TC", var(--font-cjk);
+  font-weight: 700;
+  font-size: 1.7rem;
+  line-height: 1.2;
+  color: #3a3f46;
+}
+.t-bored-games .tile-blurb {
+  margin-bottom: 20px;
+  font-family: "LXGW WenKai TC", var(--font-cjk-sans);
+  font-weight: 400;
+  font-size: .95rem;
+  line-height: 1.6;
+  color: #3a3f46;
+}
+.t-bored-games .tile-go {
+  padding: 10px 24px;
+  border-radius: 8px;
+  background: #2340a8;
+  color: #f8f9f3;
+  font-family: "LXGW WenKai TC", var(--font-cjk-sans);
+  font-weight: 700;
+  font-size: 1rem;
+}
+.t-bored-games [data-l="zh"] { font-family: "LXGW WenKai TC", var(--font-cjk); }
