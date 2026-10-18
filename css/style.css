@@ -556,6 +556,39 @@ body {
   color: rgba(9, 12, 19, .7);
 }
 
+/* ---- 生在中國 ---------------------------------------------------------------
+   Same build as the last-train tile: the game's own painting on top, the
+   name riding up into the dark foot of it. Ink ground, vermilion line. */
+.t-china-life > a {
+  background: #17120d;
+  border: 1px solid #b3261e;
+}
+.t-china-life .tile-photo { position: relative; height: 214px; overflow: hidden; }
+.t-china-life .tile-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; }
+.t-china-life .tile-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(23, 18, 13, 0) 40%, rgba(23, 18, 13, .6) 76%, #17120d 100%);
+}
+.t-china-life .tile-body { position: relative; margin-top: -30px; padding: 0 26px 26px; display: flex; flex-direction: column; }
+.t-china-life .tile-name {
+  margin: 0 0 6px;
+  text-shadow: 0 2px 16px rgba(10, 8, 6, .95);
+  font-family: "Noto Serif TC", var(--font-cjk);
+  font-weight: 700;
+  font-size: 2.9rem;
+  line-height: 1;
+  letter-spacing: .12em;
+  color: #f3ead6;
+}
+.t-china-life .kicker { display: block; font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-size: .9rem; letter-spacing: .18em; text-indent: .18em; color: #d9b36a; }
+.t-china-life .rule { display: block; width: 44px; height: 1px; margin: 18px 0 16px; background: #b3261e; }
+.t-china-life .tile-blurb { margin-bottom: 24px; font-family: var(--font-cjk); font-size: .875rem; line-height: 1.75; color: #c9bfae; }
+.t-china-life .tile-go { align-self: stretch; justify-content: center; gap: 12px; height: 46px; background: #b3261e; color: #fff6e8; border-radius: 2px; }
+.t-china-life .tile-go b { font-family: var(--font-cjk); font-size: 1rem; font-weight: 700; letter-spacing: .24em; text-indent: .24em; }
+.t-china-life .tile-go i { font-style: normal; font-family: var(--font-cjk); font-size: .69rem; letter-spacing: .16em; color: rgba(255, 246, 232, .75); }
+
 /* ---- 7. The Resistance ----------------------------------------------------
    The dark table from the game's own stylesheet: its near-black ground and
    hairline, blue for missions won, red for missions lost, gold for the

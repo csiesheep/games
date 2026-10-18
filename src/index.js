@@ -68,6 +68,7 @@ const SITEMAP_URLS = [
   { loc: ORIGIN + "/tiandihui/", lastmod: "2026-09-12", priority: "0.9" },
   { loc: ORIGIN + "/last_train/", lastmod: "2026-09-16", priority: "0.9" },
   { loc: ORIGIN + "/zongheng/", lastmod: "2026-09-22", priority: "0.9" },
+  { loc: ORIGIN + "/china_life/", lastmod: "2026-10-18", priority: "0.9" },
   { loc: ORIGIN + "/bored_games/", lastmod: "2026-09-26", priority: "0.9" },
 ];
 const SITEMAP_XML =
